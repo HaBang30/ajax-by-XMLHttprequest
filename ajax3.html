@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax 3 - External API</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-is/18.2.0/umd/react-is.production.min.js" integrity="sha512-avzEQw/8oaTD541O8Lx5mlInnomZ6nD2Pd54Whil/TYnUSQwwpeCJOndjWEMSuZ7yItoLOiXVvm885FYoSrspQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <button id="button">Load Github Users</button>
+    <h1>Github Users</h1>
+    <div id="user"></div>
+
+
+    <script>
+        // The way 1: take data by XMLHttprequest:
+        // Take avatar, id and login of users.
+
+        // document.getElementById("button").addEventListener('click', loadUsers);
+        // function loadUsers() {
+        //     // take data of users by XMLHttpRequest.
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.open("GET", "https://api.github.com/users", true);
+        //     xhr.onload = function() {
+        //         if (this.status == 200) {
+        //             let data = JSON.parse(this.responseText);
+                    
+        //             let printData = "";
+        //             for (i = 0; i < data.length; i++) {
+        //                 printData += `<div class ='user'>
+        //                     <img src = ${data[i].avatar_url} width = '70', height ='70'>
+        //                     <ul>
+        //                         <li>ID: ${data[i].id} </li>
+        //                         <li>Login: ${data[i].login} </li>
+        //                     </ul>    
+        //                 </div>
+        //                 `                       
+        //             }
+        //             document.getElementById('user').innerHTML = printData;
+        //         }
+        //     }
+        //     xhr.send();
+        // }
+
+
+        //The way 2: Use fetch to take data from users github.
+        // To use Promise:
+        // var url = 'https://api.github.com/users'
+        
+        // document.getElementById("button").addEventListener('click', function() {
+        // fetch(url)
+        // .then(response => response.json())
+        // .then((data) => {
+        //     let printData = "";
+        //     for (let i = 0; i < data.length; i++) {
+        //         printData += `<div class = "user">
+        //                 <img src = ${data[i].avatar_url} width = "70" height = "70">
+        //                 <ul>
+        //                     <li>ID: ${data[i].id}</li>
+        //                     <li>Login: ${data[i].login}</li>
+        //                 </ul>
+        //         </div>
+        //         `
+        //     }
+        //     document.getElementById("user").innerHTML = printData;
+        // })
+        // .catch(err => console.error("Error: ", err));
+        // })
+        
+        
+        // The way 2: Use fetch to take data from users Github.
+        // To use async/ await.
+        
+        // let url = 'https://api.github.com/users';
+        // //let printData = "";
+        // document.getElementById("button").addEventListener('click', loadData);
+        // function loadData() {
+        //     async function fectUrl() {
+        //         //let printData = "";
+        //         try{
+        //             let printData = "";
+        //             let response = await fetch(url);
+        //             let data = await response.json();
+        //             for (let i = 0; i < data.length; i++) {
+        //                 printData += `<div class ="user">
+        //                             <img src = ${data[i].avatar_url} width = "70" height = "70">
+        //                             <ul>
+        //                                 <li>ID: ${data[i].id}</li>
+        //                                 <li>Login: ${data[i].login}</li>
+                    
+        //                             </ul>
+        //                      </div>    
+        //                     `
+        //             }
+        //             document.getElementById("user").innerHTML = printData;
+        //         } catch(e) {
+        //             console.log(e);
+        //         }
+                
+        //     }
+        //     fectUrl();
+        // } 
+
+
+        // The way 3: Use axios ta take the data for users Github.
+        // If you want to use axios, you must copy link of axios and paste on the card <head>
+        
+        // To use promise to resolve:
+        // let url = "https://api.github.com/users"  
+        // document.getElementById("button").addEventListener('click', loadData);
+        // function loadData() {
+        //     axios.get(url)
+        //     .then(res => {
+        //         let printData ="";
+        //         let dataPrint = res.data;
+        //         for (let i = 0; i < dataPrint.length; i++) {
+        //             printData += `<div class = "user">
+        //                 <img src = ${dataPrint[i].avatar_url} width = "70" height = "70" >
+        //                 <ul>
+        //                     <li>ID:${dataPrint[i].id}</li>
+        //                     <li>Login:${dataPrint[i].login}</li>
+        //                 </ul>   
+        //             </div>
+        //             `
+        //         }
+        //         document.getElementById("user").innerHTML = printData;
+        //     })
+        //     .catch(err => console.error("Error :", err));
+        // } 
+        
+    
+        // To use async/await to resolve:
+        // let url = "https://api.github.com/users";
+        // document.getElementById("button").addEventListener('click', loadData);
+        // function loadData() {
+        //     async function fetchUrl() {
+
+        //         try{
+        //             let response = await fetch(url);
+        //             let data =  await response.json();
+        //             console.log(data);
+        //             // code such as async/await above:
+        //         } catch (e) {
+        //             console.log(e);
+        //         }
+        //     }  
+        //     fetchUrl();
+        // }
+
+        // To use interceptors to resolve:
+        let url = "https://api.github.com/users"  
+        document.getElementById("button").addEventListener('click', loadData);
+        function loadData() {
+            axios.interceptors.response.use(function(response) {
+                return response.data;
+            }, function(error) {
+                return promise.reject(error);
+            });
+            axios.get(url)
+            .then(data => {
+                let printData ="";
+                for (let i = 0; i < data.length; i++) {
+                    printData +=
+                        `
+                        <div class = "user">
+                            <img src = ${data[i].avatar_url} width = "70" height = "70" >
+                            <ul>
+                                <li>ID: ${data[i].id} </li>
+                                <li>Login: ${data[i].login} </li>
+                            </ul>
+                        </div>
+                        `
+                }
+                document.getElementById("user").innerHTML = printData;
+            });
+        }
+
+        
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+    
+    
